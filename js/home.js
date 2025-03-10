@@ -55,6 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
       } else {
         // Redirect back to login if no branch name found
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
       }
     });
