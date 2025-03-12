@@ -63,6 +63,7 @@ import { database, ref, push, onValue } from "./firebaseConfig.js";
   const usedsticEL = document.querySelector("#usedstic");
   const damagedEL = document.querySelector("#damaged");
   const totaldEL = document.querySelector("#totlsick");
+ const userEl = document.querySelector('#hiddenuserName');
 
   const totalStickerEl = document.getElementById("totalSticker"); // Total for `totlsick`
   const totalReceivedEl = document.getElementById("totalReceived"); // Total for `recevd`
@@ -81,7 +82,8 @@ import { database, ref, push, onValue } from "./firebaseConfig.js";
           hiddenbranch: branchEL.value,         
           usedstic: usedsticEL.value,
           damaged: damagedEL.value,
-          totlsick: totaldEL.value,                   
+          totlsick: totaldEL.value,
+          user: userEl.value,
       };
   const messageContainer = document.getElementById("messageContainer");
   push(collectionListDB, collect)
@@ -104,14 +106,16 @@ import { database, ref, push, onValue } from "./firebaseConfig.js";
         let totalReceived = 0;
 
         userArray.forEach(([id, currentUserValue]) => {
+            let formattedDate = formatDate(currentUserValue.hiddenmainDate);
             let totlsickValue = parseInt(currentUserValue.totlsick) || 0;
-            let recevdValue = parseInt(currentUserValue.recevd) || 0;
+            let recevdValue = parseInt(currentUserValue.received) || 0;
 
             totalSick += totlsickValue;
             totalReceived += recevdValue;
 
             tblBodyEl.innerHTML += `
                 <tr>
+                    <td>${formattedDate || "-"}</td>
                     <td>${currentUserValue.hiddenmainDate || "-"}</td> 
                     <td>${currentUserValue.hiddenbranch || "-"}</td> 
                     <td>${currentUserValue.usedstic || "-"}</td>
